@@ -173,8 +173,9 @@ module Ebooks
 
     # Logs info to stdout in the context of this bot
     def log(*args)
+      time = Time.now
       log_file = File.open("#{@username}.log", "a")
-      log_file.puts "@#{@username}: " + args.map(&:to_s).join(' ') + "\n"
+      log_file.puts "[" + time.inspect + "] @#{@username}: " + args.map(&:to_s).join(' ') + "\n"
       log_file.close
 
       STDOUT.print "@#{@username}: " + args.map(&:to_s).join(' ') + "\n"
