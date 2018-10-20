@@ -377,22 +377,8 @@ module Ebooks
         log "starting mentions after tweet ##{latest_mention}"
       end
 
-      # Poll home timeline every 70s (rate limit is 15 GETs/15min)
-      scheduler.every '70s' do
-        tweets = twitter.home_timeline(options_home)
-        log "#{tweets.size} new tweets in timeline"
-        tweets.each do |ev|
-          latest_tweet = ev.id if ev.id > latest_tweet
-          receive_event ev
-          options_home[:since_id] = latest_tweet
-        end
-        file = open(persistence_file, 'w')
-        file.puts({latest_tweet:  latest_tweet, latest_mention: latest_mention}.to_json)
-        file.close
-      end
-
-      # Poll mentions timeline every 20s (rate limit is 75 GETs/15min)
-      scheduler.every '20s' do
+      # Poll mentions timeline every 30s (rate limit is 75 GETs/15min)
+      scheduler.every '30s' do
         mentions = twitter.mentions_timeline(options_mention)
         log "#{mentions.size} new mentions in timeline"
         mentions.each do |ev|
