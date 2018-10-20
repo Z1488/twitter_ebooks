@@ -174,7 +174,7 @@ module Ebooks
     # Logs info to stdout in the context of this bot
     def log(*args)
       file = File.open("#{@username}.log", "w")
-      file.puts"@#{@username}: " + args.map(&:to_s).join(' ') + "\n"
+      file.puts "@#{@username}: " + args.map(&:to_s).join(' ') + "\n"
       file.close
 
       STDOUT.print "@#{@username}: " + args.map(&:to_s).join(' ') + "\n"
